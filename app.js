@@ -20,7 +20,10 @@ document.addEventListener('DOMContentLoaded', () => {
             squares.push(square);
         }
 
-
+        // add numbers
+        for (let i = 0; i < squares.length; i++) {
+            
+        }
 
 
 
