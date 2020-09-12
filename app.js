@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // add numbers
         for (let i = 0; i < squares.length; i++) {
-            
+            const isLeftEdge = (i % width === 0);
+            const isRigthtEdge = (i % width === width - 1);
         }
 
 
