@@ -48,6 +48,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // click on square actions
     function click(square) {
+        if (isGameOver) return;
+        if (square.classList.contains('checked') || square.classList.contains('flag')) return;
         if (square.classList.contains('bomb')) {
             console.log('Game Over!');
         } else {
@@ -57,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 square.innerHTML = total;
                 return;
             }
+            square.classList.add('checked');
         }
     }
 
