@@ -67,6 +67,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
 
+    //Check neighboring squares once a square is clicked
+    function checkSquare(square, currentId) {
+        const isLeftEdge = (currentId % width === 0);
+        const isRigthtEdge = (currentId % width === width -1);
+
+        setTimeout(() => {
+            if (currentId > 0 && !isLeftEdge) {
+                const newId = squares[parseInt(currentId) -1].id;
+
+            }
+        }, 10);
 
 
+    }
 });
