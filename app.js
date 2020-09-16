@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let width = 10;
     let bombAmount = 20;
     let squares = [];
+    let isGameOver = false;
 
     // Create Board
     function createBoard() {
@@ -59,8 +60,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 square.innerHTML = total;
                 return;
             }
-            square.classList.add('checked');
+            checkSquare(square, currentId)
         }
+        square.classList.add('checked');
     }
 
 
