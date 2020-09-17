@@ -76,7 +76,22 @@ document.addEventListener('DOMContentLoaded', () => {
             if (currentId > 0 && !isLeftEdge) {
                 const newId = squares[parseInt(currentId) -1].id;
                 const newSquare = document.getElementById(newId);
-                click(newSquare, newId);
+                click(newSquare);
+            }
+            if(currentId > 9 && !isRigthtEdge) {
+                const newId = squares[parseInt(currentId) +1 -width].id;
+                const newSquare = document.getElementById(newId);
+                click(newSquare);
+            }
+            if (currentId > 10) {
+                const newId = squares[parseInt(currentId-width)].id;
+                const newSquare = document.getElementById(newId);
+                click(newSquare);
+            }
+            if (currentId > 11 && !isLeftEdge) {
+                const newId = squares[parseInt(currentId) -1 -width].id;
+                const newSquare = document.getElementById(newId);
+                click(newSquare);
             }
         }, 10);
 
