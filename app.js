@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     const grid = document.querySelector('.grid');
+    const flagsLeft = document.querySelector('#flags-left');
+    const result = document.querySelector('#result');
     let width = 10;
     let bombAmount = 20;
     let flags = 0;
@@ -8,6 +10,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Create Board
     function createBoard() {
+        flagsLeft.innerHTML = bombAmount;
+
         //get shuffled game-array with random bombs
         const bombsArray = Array(bombAmount).fill('bomb');
         const emptyArray = Array(width*width - bombAmount).fill('valid');
@@ -25,6 +29,12 @@ document.addEventListener('DOMContentLoaded', () => {
             square.addEventListener('click', function(e) {
                 click(square);
             });
+
+            //Control and Right Click
+            square.oncontextmenu = function(e) {
+                e.preventDefault();
+                addFlag(square);
+            };
         }
 
         // add numbers
@@ -54,12 +64,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!square.classList.contains('checked') && (flags < bombAmount)) {
             if (!square.classList.contains('flag')) {
                 square.classList.add('flag');
-                square.innerHTML = '🏁';
+                square.innerHTML = '🚩';
                 flags ++;
+                flagsLeft.innerHTML = bombAmount - flags;
+                checkForWin();
             } else {
                 square.classList.remove('flag');
                 square.innerHTML = '';
                 flags --;
+                flagsLeft.innerHTML = bombAmount - flags;
             }
         }
     }
@@ -75,6 +88,10 @@ document.addEventListener('DOMContentLoaded', () => {
             let total = square.getAttribute('data');
             if (total !=0) {
                 square.classList.add('checked');
+                if (total == 1) square.classList.add('one');
+                if (total == 2) square.classList.add('two');
+                if (total == 3) square.classList.add('three');
+                if (total == 4) square.classList.add('four');
                 square.innerHTML = total;
                 return;
             }
@@ -134,21 +151,31 @@ document.addEventListener('DOMContentLoaded', () => {
 
     //Game Over
     function gameOver(square) {
-        console.log('BOOM! Game Over');
-
+        alert('BOOM! Game Over');
         isGameOver = true;
 
         //Show ALL Bombs
         squares.forEach(square => {
             if (square.classList.contains('bomb')) {
                 square.innerHTML = '💣';
+                square.classList.remove('bomb');
+                square.classList.add('checked');
             }
         });
     }
 
-
-
-
-
-
+    //Check for Win
+    function checkForWin() {
+        let matches = 0;
+        
+        for (i = 0; i < squares.length; i++) {
+            if (squares[i].classList.contains('flag') && squares[i].classList.contains('bomb')) {
+                matches ++;
+            }
+            if (matches === bombAmount) {
+                alert('YOU WIN!');
+                isGameOver = true;
+            }
+        }
+    }
 });
